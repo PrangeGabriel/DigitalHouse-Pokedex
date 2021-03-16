@@ -1,0 +1,52 @@
+*{
+    box-sizing: border-box;
+    border: 0;
+    outline: 0;
+    padding: 0;
+    margin: 0;
+
+}
+header{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px;
+    background-color: #F5DB13;
+}
+header > img{
+    width: 64px;
+}
+header > button{
+    background: none;
+    cursor: pointer;
+}
+.navbar{
+    display: none;
+    font-size: 1.5rem;
+    
+}
+.navbar > a{
+    margin: 0 10px 0 0;
+}
+/* min-width significa que o pra aplicar essa regra o minimo de largura necessario é 481px */
+@media(min-width: 481px){
+    header{
+        padding: 20px 10px;
+    }
+    header > img {
+        width: 128px;
+    }
+
+}
+
+@media(min-width:650px){
+        .navbar{
+        display: flex;
+
+    }
+    .hamburger-menu{
+        display: none;
+    }
+
+}
