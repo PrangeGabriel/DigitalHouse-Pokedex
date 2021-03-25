@@ -29,6 +29,11 @@ header > button{
     font-size: 50px;
 
 }
+
+.pikachu{
+    max-width: 100%;
+}
+
 .navbar > a{
     font-size: 1.5rem;
     margin: 0 20px 0 0;
@@ -48,9 +53,7 @@ header > button{
 .home{
     padding-bottom: 20px;
     border-bottom: solid #212121;
-}
-.pikachu{
-    max-width: 100%;
+
 }
 
 .link-pokemon{
@@ -66,9 +69,50 @@ header > button{
     align-items: center;    
     justify-content: center;
     text-decoration: none;
-    color: black;
+    color: #000;
     font-weight: bold;
+    transition: background 0.5s, color 0.5s;   
 
+}
+
+.link-pokemons:hover {
+    color: #fff;
+    background: #5eaf62;
+}
+
+.botao-flutuante {
+    position: fixed;
+    width: 64px;
+    height: 64px; 
+    right: 10px;   
+    bottom: 10px;
+    transition: width 1.0s, height 0.5s;
+    animation: inicio-pokebola 2s 1;    
+}
+
+.botao-flutuante > img {
+    width: 100%;
+}
+
+.botao-flutuante:hover {
+    width: 124px;
+    height: 124px;
+}
+
+@keyframes inicio-pokebola {
+    0% {
+        transform: translateY(-300px);        
+        opacity: 0%;
+    }
+
+    50% {
+        transform: translateY(0);
+        opacity: 100%;
+    }
+
+    80% {
+        transform: translateY(-32px);
+    }
 }
 
 body{
@@ -99,6 +143,32 @@ main > div > p{
     font-size: 24px;
     font-weight: normal;
     padding: 0px 40px;
+}
+
+.legendaries{
+    background: #212121;
+    color: white;
+    display: flex;
+    flex-direction: column;
+
+}
+
+.titulo-legendaries{
+    display: flex;
+    justify-content: left;
+    border-bottom: 1px solid white;
+    height: 30px;
+
+}
+
+.content{
+    display: flex;
+    justify-content: center;
+
+}
+.mew{
+    height: 70%;
+    width: 100%;
 }
 
 
@@ -144,4 +214,17 @@ main > div > p{
     main > div > p {
         margin: 64px 0;
     }
+}
+@media(min-width: 1280px){
+    header{
+        justify-content: space-around;
+    }
+
+    .content{
+        justify-content: space-around;
+    }
+    .mew{
+        max-width: 100%;
+    }
+
 }
