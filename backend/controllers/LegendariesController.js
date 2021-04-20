@@ -21,10 +21,6 @@ const controller = {
             specialDefense
         } = req.body;
 
-        if (!description) { 
-            return res.status(400).json({error: "Description is required"});          
-        }
-
         const legendary = LegendariesService.createLegendary(
             name, 
             description, 
@@ -52,10 +48,6 @@ const controller = {
             experience, 
             specialDefense
         } = req.body;
-
-        if (!description) { 
-            return res.status(400).json({error: "Description is required"});          
-        }
 
         res.json();       
     }
