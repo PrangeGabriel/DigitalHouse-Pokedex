@@ -1,7 +1,7 @@
 const express = require('express');
 
 const controller = require('../controllers/LegendariesController');
-const validator = require('../middlewares/LegendariesValidator')
+const validator = require('../middlewares/LegendariesValidator');
 
 const router = express.Router();
 
