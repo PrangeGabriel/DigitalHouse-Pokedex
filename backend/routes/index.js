@@ -1,7 +1,7 @@
-var express = require("express");
+const express = require("express");
 const { route } = require("./legendaries");
-var router = express.Router();
-var bcrypt = require("bcryptjs");
+const router = express.Router();
+const bcrypt = require("bcryptjs");
 
 /* GET home page. */
 router.get("/", function (req, res, next) {
@@ -21,17 +21,18 @@ router.get("/dark-mode", function (req, res) {
 
 router.get("/desafio24", function (req, res) {
   req.session.dados = { email: "grupo5", senha: "senha5" };
-  let dadosSalvos = [req.session.dados];
 
-  var salt = bcrypt.genSaltSync(10);
-  var hash = bcrypt.hashSync("senha", salt);
-  // req.session.email = "grupo5";
-  // req.session.senha = "senha5";
-  // console.log(req.session);
-  res.json(salt);
-  res.json(hash);
+  let salt = bcrypt.genSaltSync(10);
+  let hash = bcrypt.hashSync(req.session.dados.senha, salt);
 
-  res.json(dadosSalvos);
+  let dadosSalvos = [
+    {
+      email: req.session.dados.email,
+      senha: hash,
+    },
+  ];
+
+  console.log(dadosSalvos);
 });
 // router.get('/legendaries')
 
