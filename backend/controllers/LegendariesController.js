@@ -1,23 +1,44 @@
 const LegendariesService = require('../services/LegendariesService');
-const { validationResult } = require('express-validator');
+const database = require('../database/models');
+// MVCS - MODEL / VIEW / CONTROLLER / SERVICE
 
-const controller = {
-    index: (req, res) => {
-        console.log(req.session);
-        const { name } = req.query;
+// PAREDE = VIEW
+// CONTROLLER = PEDREIRO / Mestre de obras
+// SERVICE = SERVENTE DO PEDREIRO
+// MODEL = CIMENTO / TIJOLO
 
-        const legendary = LegendariesService.listPokemonData(name);        
+// VIEW = LAYOUT / DESENHO
+// CONTROLLER = ARTICULADOR / MEIO DE CAMPO / INTERMEDIADOR
+// SERVICE = 
+// MODEL = INFORMAÇÃO
+
+const controller = {  
+    indexById: async (req, res) => {
+        const { id } = req.params;
+        const legendary = await LegendariesService.getById(id);
+
+        if (!legendary) {
+            return res.status(404).json({error: `Legendary ${id} not found`})
+        }
 
         return res.json(legendary);
     },
-    create: (req, res) => {
-        //Express-validator
-        // let errors = validationResult(req);
+    indexByIdAndAttribute: async (req, res) => {
+        const { id, attribute } = req.params;
         
-        // if (!errors.isEmpty()) {
-        //     return res.status(400).json(errors);
-        // }
+        const legendary = await LegendariesService.getAttributeById(id, attribute);
 
+        if (!legendary) {
+            return res.status(404).json({error: `Legendary ${id} not found`})
+        }
+        
+        return res.json(legendary);
+    },
+    indexAll: async (req, res) => {
+        const list = await LegendariesService.getLegendaryList();
+        return res.json(list);
+    },
+    create: async (req, res) => {
         const { 
             name, 
             description, 
@@ -30,7 +51,7 @@ const controller = {
             specialDefense
         } = req.body;
 
-        const legendary = LegendariesService.createLegendary(
+        const legendary = await LegendariesService.createLegendary(
             name, 
             description, 
             type, 
@@ -44,7 +65,7 @@ const controller = {
         
         return res.json(legendary);
     },
-    update: (req, res) => { 
+    update: async (req, res) => { 
         const { id } = req.params;
         const { 
             name, 
@@ -58,7 +79,27 @@ const controller = {
             specialDefense
         } = req.body;
 
-        res.json();       
+        const updatedLegendary = await LegendariesService.updateLegendary(
+            id, 
+            name, 
+            description, 
+            type, 
+            healthPoints, 
+            specialAttack, 
+            defense, 
+            attack, 
+            experience,
+            specialDefense
+        );
+
+        res.json(updatedLegendary);       
+    },
+    destroy: async (req, res) => {
+        const { id } = req.params;
+
+        const destroyedLegendary = await LegendariesService.destroyLegendary(id);
+
+        return res.json(destroyedLegendary);
     }
 }
 

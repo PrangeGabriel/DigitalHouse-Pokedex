@@ -6,6 +6,9 @@ const logger = require('morgan');
 const cors = require('cors');
 const multer = require('multer');
 const session = require('express-session');
+const swaggerUi = require('swagger-ui-express');
+
+const swaggerConfig = require('./swagger.json');
 
 const multerConfig = require('./config/multer');
 
@@ -36,10 +39,33 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(cors());
 
+// GET E POST
+// http://localhost:3333/legendaries/
+// http://localhost:3333/coaches/
+
+// PUT E DELETE
+// http://localhost:3333/legendaries/:id
+// http://localhost:3333/coaches/:id
+
+// GET DETALHADO
+// http://localhost:3333/legendaries/:id
+
+// GET DETALHADO ATRIBUTO
+// http://localhost:3333/legendaries/:id/:attribute
+// http://localhost:3333/coaches/:id/:attribute
+
+// PATCH LEGENDARY NOME
+// http://localhost:3333/legendaries/:id/:attribute
+// http://localhost:3333/legendaries/1/description
+
+// GET RELACIONAMENTO
+// http://localhost:3333/coaches/:id/legendaries
+
 app.use(Logger);
 app.use('/', indexRouter);
 app.use('/legendaries', legendariesRouter);
 app.post('/files', uploadFile.single('file'), FileController.storeFile);
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerConfig));
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
